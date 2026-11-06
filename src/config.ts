@@ -1,0 +1,3 @@
+// Número com código do país e DDD, só dígitos. Ex.: 5543999999999
+export const WHATSAPP_NUMERO = "5543999823195";
+export const PIX_CHAVE = "00020126390014BR.GOV.BCB.PIX0117gzemuner@live.com5204000053039865802BR5921Gabriel Bueno Zemuner6009SAO PAULO62140510xq9AA37rcd6304EB94";

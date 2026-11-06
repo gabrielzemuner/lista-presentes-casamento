@@ -1,13 +1,22 @@
 export type GiftStatus = "disponivel" | "comprado";
+export type GiftCategory = "Cozinha" | "Sala";
+
+export interface GiftLink {
+  loja: string;
+  url: string;
+}
+
+export interface GiftOption {
+  nome: string;
+  imagemUrl?: string;
+  links: GiftLink[];
+}
 
 export interface Gift {
   id: string;
   nome: string;
-  categoria: "Cozinha" | "Sala";
-  descricao: string; // modelo, tamanho, cor, voltagem
-  valor: number; // valor de referência, em reais
-  arrecadado?: number; // opcional: soma dos Pix parciais já recebidos
-  imagem?: string;
-  links: string[]; // até 3 sites de referência
+  categoria: GiftCategory;
+  descricao: string;
+  opcoes: GiftOption[];
   status: GiftStatus;
 }
