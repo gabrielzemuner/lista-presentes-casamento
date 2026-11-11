@@ -31,7 +31,7 @@ export function PixDialog({ open, onOpenChange, presente }: PixDialogProps) {
 
   const destino = presente
     ? `para o presente "${presente}"`
-    : "para os recém-casados";
+    : "como presente de casamento";
   const mensagem = `Oi! Enviei um Pix de R$ ___ ${destino}. Meu nome: ___`;
 
   return (

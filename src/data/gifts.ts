@@ -10,7 +10,7 @@ export const gifts: Gift[] = [
     nome: "Micro-ondas",
     categoria: "Cozinha",
     descricao:
-      "21 litros, com desodorizador. Tamanho máximo: 56x32 cm, 35 cm de profundidade. TODO: voltagem",
+      "21 litros, com desodorizador. Tamanho máximo: 56x32 cm, 35 cm de profundidade.",
     status: "disponivel",
     opcoes: [
       {
@@ -26,6 +26,7 @@ export const gifts: Gift[] = [
             url: "https://shopee.com.br/product/443109642/23093882310",
           },
         ],
+        precoRef: 550
       },
     ],
   },
@@ -45,6 +46,7 @@ export const gifts: Gift[] = [
             url: "https://www.leroymerlin.com.br/cooktop-4-bocas-a-gas-com-acendimento-automatico-vidro-preto-bivolt-infinity-26297-57076-fischer_90874693",
           },
         ],
+        precoRef: 739
       },
       {
         nome: "Cooktop 4 Bocas Dako Supreme com Mesa de Vidro e Tripla Chama Preto Bivolt",
@@ -55,6 +57,7 @@ export const gifts: Gift[] = [
             url: "https://www.mercadolivre.com.br/cooktop-4-bocas-dako-supreme-com-mesa-de-vidro-e-tripla-chama-preto-bivolt/p/MLB23455094",
           },
         ],
+        precoRef: 508
       },
     ],
   },
@@ -74,6 +77,7 @@ export const gifts: Gift[] = [
             url: "https://www.colombo.com.br/produto/Eletrodomesticos/Forno-Eletrico-44-Litros-Grill-16-Fischer?cor=Branca&espec=110v-seller-1",
           },
         ],
+        precoRef: 619
       },
     ],
   },
@@ -93,6 +97,7 @@ export const gifts: Gift[] = [
             url: "https://www.mercadolivre.com.br/jogo-3-assadeiras-lasanheira-de-vidro-refrataria-retangular/up/MLBU3330926093",
           },
         ],
+        precoRef: 110
       },
     ],
   },
@@ -112,6 +117,7 @@ export const gifts: Gift[] = [
             url: "https://loja.mundial.com/jogo-de-panelas-soft-touch-hercules-antiaderente-5-pecas-cinza-pa300-5pcz-717276",
           },
         ],
+        precoRef: 633
       },
       {
         nome: "Jogo de Panelas Brinox Antiaderente Ceramic Life 8 Peças Smart Plus Vanilla",
@@ -122,6 +128,7 @@ export const gifts: Gift[] = [
             url: "https://www.brinox.com.br/jogo-de-panelas-brinox-antiaderente-ceramic-life-8-pecas-smart-plus-vanilla_4791105-1-4791105/p",
           },
         ],
+        precoRef: 550
       },
     ],
   },
@@ -141,6 +148,7 @@ export const gifts: Gift[] = [
             url: "https://www.tramontina.com.br/faqueiro-tramontina-havana-em-aco-inox-com-facas-para-churrasco-acabamento-em-brilho-36-pecas/66945794.html",
           },
         ],
+        precoRef: 250
       },
       {
         nome: "Faqueiro Tramontina Pacific, 36 peças",
@@ -151,15 +159,18 @@ export const gifts: Gift[] = [
             url: "https://www.tramontina.com.br/faqueiro-tramontina-pacific-em-aco-inox-com-facas-para-churrasco-acabamento-alto-brilho-com-detalhes-no-cabo-36-pecas/66962134.html",
           },
         ],
+        precoRef: 425
       },
       {
         nome: "Faqueiro Tramontina Cosmos, 42 peças",
+        imagemUrl: imagem("talheres3.png"),
         links: [
           {
             loja: "Tramontina",
             url: "https://www.tramontina.com.br/faqueiro-tramontina-cosmos-em-aco-inox-com-facas-para-churrasco-acabamento-brilho-e-fosco-42-pecas/66950774.html",
           },
         ],
+        precoRef: 383
       },
     ],
   },
@@ -179,6 +190,7 @@ export const gifts: Gift[] = [
             url: "https://www.mercadolivre.com.br/aparelho-de-jantar-e-cha-30-pecas-oxford-unni-brisa/p/MLB32811621",
           },
         ],
+        precoRef: 550
       },
     ],
   },
@@ -198,6 +210,7 @@ export const gifts: Gift[] = [
             url: "https://www.colombo.com.br/produto/Eletrodomesticos/Lava-e-Seca-Samsung-Ecobubble-11-Kg-Smart-Check-Inox-Look-WD11A?cor=Inox+Look&espec=110v-seller-1",
           },
         ],
+        precoRef: 3800
       },
     ],
   },

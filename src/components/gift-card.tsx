@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PixDialog } from "@/components/pix-dialog";
-import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -10,104 +9,117 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { linkWhatsapp } from "@/lib/whatsapp";
-import type { Gift, GiftOption } from "@/types";
+import type { Gift } from "@/types";
 
-function Foto({ src, alt }: { src?: string; alt: string }) {
+function Foto({
+  src,
+  alt,
+  comprado,
+}: {
+  src?: string;
+  alt: string;
+  comprado?: boolean;
+}) {
   return (
-    <div className="flex h-64 items-center justify-center border-b bg-white p-4">
+    <div className="relative flex h-64 items-center justify-center border-b bg-white p-4">
       {src && (
         <img
           src={src}
           alt={alt}
           loading="lazy"
-          className="max-h-full max-w-full object-contain"
+          className={cn(
+            "max-h-full max-w-full object-contain",
+            comprado && "opacity-40 grayscale",
+          )}
         />
+      )}
+      {comprado && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-background/20">
+          <img
+            src={`${import.meta.env.BASE_URL}casal-comemorando-2.png`}
+            alt=""
+            className="h-20 motion-safe:animate-pular"
+          />
+          <span className="-rotate-3 rounded border-2 border-primary bg-background/90 px-3 py-1 font-heading text-lg uppercase tracking-widest text-primary">
+            Já ganhamos!
+          </span>
+        </div>
       )}
     </div>
   );
 }
 
 export function GiftCard({ gift }: { gift: Gift }) {
-  const [api, setApi] = useState<CarouselApi>();
   const [indice, setIndice] = useState(0);
   const [pixAberto, setPixAberto] = useState(false);
 
-  useEffect(() => {
-    if (!api) return;
-    const aoMudar = () => setIndice(api.selectedScrollSnap());
-    api.on("select", aoMudar);
-    return () => {
-      api.off("select", aoMudar);
-    };
-  }, [api]);
-
   const comprado = gift.status === "comprado";
   const varias = gift.opcoes.length > 1;
-  const opcao: GiftOption | undefined = gift.opcoes[indice];
+  const opcao = gift.opcoes[indice];
 
   const nomeCompleto = opcao ? `${gift.nome} (${opcao.nome})` : gift.nome;
   const mensagemCompra = `Oi! Comprei o presente "${nomeCompleto}". Meu nome: ___`;
 
   return (
-    <Card className={cn("h-full pt-0", comprado && "opacity-60")}>
-      {varias ? (
-        <div className="relative">
-          <Carousel setApi={setApi} opts={{ loop: true }}>
-            <CarouselContent className="ml-0">
-              {gift.opcoes.map((o) => (
-                <CarouselItem key={o.nome} className="pl-0">
-                  <Foto src={o.imagemUrl} alt={o.nome} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-
-          <Button
-            variant="secondary"
-            size="sm"
-            aria-label="Opção anterior"
-            className="absolute left-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full p-0"
-            onClick={() => api?.scrollPrev()}
-          >
-            ‹
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            aria-label="Próxima opção"
-            className="absolute right-2 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full p-0"
-            onClick={() => api?.scrollNext()}
-          >
-            ›
-          </Button>
-          <span className="absolute bottom-2 right-3 rounded-full bg-background/80 px-2 py-0.5 text-xs text-muted-foreground">
-            {indice + 1}/{gift.opcoes.length}
+    <Card className="h-full pt-0">
+      <div className="relative">
+        <Foto
+          src={opcao?.imagemUrl}
+          alt={opcao?.nome ?? gift.nome}
+          comprado={comprado}
+        />
+        {varias && (
+          <span className="absolute left-3 top-3 rounded-full bg-primary px-2.5 py-0.5 text-xs text-primary-foreground">
+            Opção {indice + 1}
           </span>
-        </div>
-      ) : (
-        <Foto src={opcao?.imagemUrl} alt={gift.nome} />
-      )}
+        )}
+      </div>
 
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <CardTitle className="font-heading text-lg">{gift.nome}</CardTitle>
-          {comprado && <Badge>Já ganhamos!</Badge>}
         </div>
         <CardDescription>{gift.descricao}</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex-1 space-y-3">
-        {opcao && (
-          <>
-            <p className="text-sm font-medium">{opcao.nome}</p>
+      <CardContent className="flex-1 space-y-4">
+        {!comprado && varias && (
+          <div className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+              Este presente tem {gift.opcoes.length} opções de produto
+            </p>
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Opções do presente"
+            >
+              {gift.opcoes.map((o, i) => (
+                <Button
+                  key={o.nome}
+                  size="sm"
+                  variant={i === indice ? "default" : "outline"}
+                  aria-pressed={i === indice}
+                  onClick={() => setIndice(i)}
+                >
+                  Opção {i + 1}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {!comprado && opcao && (
+          <div className="space-y-3">
+            <p className="text-sm font-medium">
+              {varias && (
+                <span className="text-muted-foreground">
+                  Opção {indice + 1}:{" "}
+                </span>
+              )}
+              {opcao.nome}
+            </p>
             <div className="flex flex-wrap gap-2">
               {opcao.links.map((link) => (
                 <a
@@ -124,7 +136,13 @@ export function GiftCard({ gift }: { gift: Gift }) {
                 </a>
               ))}
             </div>
-          </>
+          </div>
+        )}
+
+        {comprado && (
+          <p className="text-sm text-muted-foreground">
+            Presente garantido. Obrigado de coração!
+          </p>
         )}
       </CardContent>
 

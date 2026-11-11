@@ -1,9 +1,16 @@
 import { GiftCard } from "@/components/gift-card";
+import { Button } from "@/components/ui/button";
+import { ValorLivre } from "@/components/valor-livre";
 import { gifts } from "@/data/gifts";
+import { faixas, presenteNaFaixa } from "@/lib/faixas";
+import { useState } from "react";
 
 const categorias = ["Cozinha", "Sala"] as const;
 
 export default function App() {
+  const [faixaId, setFaixaId] = useState<string | null>(null);
+  const faixa = faixas.find((f) => f.id === faixaId);
+
   return (
     <>
       <header className="border-b">
@@ -27,9 +34,45 @@ export default function App() {
           </p>
         </div>
 
+        <ValorLivre />
+
+        <div
+          className="mt-6 flex flex-wrap justify-center gap-2"
+          role="group"
+          aria-label="Filtrar por faixa de valor"
+        >
+          <Button
+            size="sm"
+            variant={!faixaId ? "default" : "outline"}
+            aria-pressed={!faixaId}
+            onClick={() => setFaixaId(null)}
+          >
+            Todos
+          </Button>
+          {faixas.map((f) => (
+            <Button
+              key={f.id}
+              size="sm"
+              variant={f.id === faixaId ? "default" : "outline"}
+              aria-pressed={f.id === faixaId}
+              onClick={() => setFaixaId(f.id)}
+            >
+              {f.rotulo}
+            </Button>
+          ))}
+        </div>
+
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          Faixas de valor aproximadas, só para ajudar na escolha. Os preços
+          variam conforme a loja e mudam com o tempo.
+        </p>
+
         {categorias.map((categoria) => {
           const itens = gifts.filter(
-            (g) => g.categoria === categoria && g.opcoes.length > 0,
+            (g) =>
+              g.categoria === categoria &&
+              g.opcoes.length > 0 &&
+              (!faixa || presenteNaFaixa(g, faixa)),
           );
           if (itens.length === 0) return null;
 

@@ -10,6 +10,7 @@ export interface GiftOption {
   nome: string;
   imagemUrl?: string;
   links: GiftLink[];
+  precoRef?: number; // valor aproximado em reais, só para o filtro
 }
 
 export interface Gift {

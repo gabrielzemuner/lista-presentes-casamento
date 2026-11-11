@@ -128,3 +128,11 @@
     @apply font-sans;
     }
 }
+
+@theme {
+  --animate-pular: pular 1s ease-in-out infinite;
+  @keyframes pular {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+}
